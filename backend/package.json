@@ -1,0 +1,20 @@
+{
+  "name": "followboost-backend",
+  "version": "1.0.2",
+  "description": "FollowBoost API — Instagram growth & rewards backend (Express + SQLite). Original code.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node --test test/test.js"
+  },
+  "keywords": [],
+  "author": "Riad Developer",
+  "license": "MIT",
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "better-sqlite3": "^13.0.3",
+    "cors": "^2.8.6",
+    "express": "^5.3.0",
+    "jsonwebtoken": "^9.0.3"
+  }
+}

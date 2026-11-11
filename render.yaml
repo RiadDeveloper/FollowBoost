@@ -1,0 +1,45 @@
+# FollowBoost API — Render blueprint.
+#
+# Deploy: push this repo to GitHub, then in the Render dashboard
+# "New +" -> "Blueprint" and point it at the repo. Render reads this file
+# and creates the web service below. See backend/README.md for the full
+# deploy notes, including the free-tier data-loss warning.
+#
+# IMPORTANT — free tier data loss: Render's free tier has an EPHEMERAL
+# filesystem. data/followboost.db (all users, coins, orders) is LOST on
+# every deploy/restart unless you attach a paid Persistent Disk and point
+# DB_PATH at it, or migrate to Postgres (not done in this build). Do not
+# run real users on the free tier expecting their data to survive.
+
+services:
+  - type: web
+    name: followboost-api
+    runtime: node
+    plan: free
+    rootDir: backend
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: PORT
+        value: 3000
+      - key: NODE_ENV
+        value: production
+      - key: JWT_SECRET
+        generateValue: true
+        sync: false
+      - key: DB_PATH
+        value: data/followboost.db
+        sync: false
+      # Instagram OAuth (Meta developer app) — required for real Instagram
+      # login. Leave empty until the Meta app exists; the API reports
+      # { configured: false } and POST /api/instagram/oauth/start returns
+      # 503 until all three are set.
+      - key: OAUTH_CLIENT_ID
+        value: ""
+        sync: false
+      - key: OAUTH_CLIENT_SECRET
+        value: ""
+        sync: false
+      - key: OAUTH_REDIRECT_URI
+        value: ""
+        sync: false

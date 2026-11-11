@@ -1,0 +1,7 @@
+# FollowBoost backend — never commit the database or secrets.
+node_modules/
+data/
+.env
+*.db
+*.db-wal
+*.db-shm
